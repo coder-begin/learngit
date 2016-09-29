@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>流程控制</title>
+		<script type="text/javascript">
+			//		var a=prompt("name",0);
+			//		function min(a,b){
+			//			
+			//			return (a>b?b:a);
+			//			
+			//		}
+			//		
+			//		var getOdd=new Array();
+			//		function printOdd(n){
+			//			var index=0;
+			//			for(var i=1;i<=n;i++){
+			//				
+			//				if(i%2!=0){
+			//					getOdd[index]=i;
+			//					index++;
+			//					
+			//				}
+			//				
+			//			}
+			//			
+			//			
+			//		}
+			//前面是参数，最后一个是表达式
+			//		var b=new Function("x","y","var result=x*x-y*y;return result;");
+			//b(4,3);
+			//		function add(n){
+			//			document.write(arguments[2]);
+			//		if(n==3){
+			//				return 3;
+			//			}
+			//			return n+add(n-1);
+			//
+			//		}
+			//	 
+			//函数可以像数据一样被赋值给别的数据
+			//	var myFunction=add;
+			//		document.write(myFunction(5));
+
+			//*********************************************************
+			//javasc内置函数
+			//escape()函数返回字符的unicode编码
+			//unescape()函数返回字符的反unicode编码
+			//var code=escape("我擦");
+			//document.write(code);
+			//var unCode=unescape(code);
+			//document.write(unCode);
+
+			//encodeURI将字符串编码为URL标识符，URL是URI的子集
+			//decodeURI将URL反编码
+			//var url="Http://www.baidu.com?name=我擦             ";
+			//var uri=encodeURI(url);
+			//var deuri=decodeURI(uri);
+			//document.write(uri);
+			//document.write(deuri);
+
+			//isNan是对number的检测
+			//document.write(isNaN(1));
+			//document.write(isNaN("我擦"));
+
+			//isFinite检测是否为有限数，NaN，负无穷和正无穷被认为是Finite的，会返回true，其余都是false
+
+			//eval()函数将参数解读为javascript代码
+			//eval("document.write('doubi')");
+
+			//function car(color,mileage,brand){
+			//	
+			//	this.color=color;
+			//	this.mileage=mileage;
+			//	this.brand=brand;
+			//
+			//	
+			//	this.whistle=function(){
+			//		
+			//		document.write("鸣笛");
+			//	}
+			//	this.start=function(){
+			//		document.write("启动");
+			//		
+			//		
+			//		
+			//	}
+			//	this.stop=function(){
+			//		
+			//		document.write("停止");
+			//		
+			//		
+			//	}
+			//	
+			//	
+			//	
+			//	
+			//	
+			//}
+			//
+			//		var myCar=new car("yellow",100,"BMW");
+			//	var myCar0=new car("black",300,"大奔");
+			//	document.write("color:"+myCar.color+"里程:"+myCar.mileage+"商标:"+myCar.brand);
+			//	document.write("<br />")
+			//	
+			//	myCar.start();
+			//	document.write("<br />")
+			//第二种访问对象的函数的方法,同样也可以用此种方法来访问属性，只是不要加括号
+			//	myCar["start"]();
+
+			//还可以给特定的对象添加方法
+			//	myCar.wait=function(){
+			//		document.write("i mam waiting");
+			//		
+			//		
+			//	}
+			//	myCar.wait();
+
+			//删除对象的属性,就是直接将他的属性设置为undefined
+			//	delete myCar.color;
+			//	document.write(myCar.color);
+
+			//	document.write("color:"+myCar0.color+"里程:"+myCar0.mileage+"商标:"+myCar0.brand);
+			//	
+			//	document.write("<br />")
+			//myCar.stop();
+
+			//function Shirt(size ,color, style){
+			//	
+			//	this.size=size;
+			//	this.color=color;
+			//	this.style=style;
+			//	this.sayHello=function(name){
+			//		
+			//		document.write(name+":"+color);
+			//		
+			//		
+			//	}
+			//	
+			//	
+			//}
+
+			//var shirt =new Shirt("xl","yellow","xp");
+
+			//shirt.grade="A";
+			//shirt.size="xxl";
+			//shirt.color="blue";
+			//delete shirt.sayHello;
+			//shirt.style=undefined;
+			//document.write(shirt.color+shirt.size+shirt.style+shirt.grade);
+			//shirt.sayHello();
+
+			//------------------------------
+			//with 的使用
+			//with(shirt){
+			//使用with不能够给对象添加新的属性和方法，必须使用对象.属性的方式，如下
+			//	shirt.grade="A";
+			//而不是直接grade="A"
+			//	size="xxl";
+			//	
+			//}
+
+			//--------------------------------
+			//for...in..的使用
+			//for。。。in..可以用来遍历对象的属性，也可以用来遍历数组
+			//var newArray=new Array();
+
+			//for(var i=0;i<10;i++){
+			//	newArray[i]=parseInt(Math.random()*100);
+			//	
+			//}
+			//var str="";
+			//下面的getNum指的是数组的下标，从0开始
+			//在对象中指的是对象的属性
+			//for(var getNum in newArray){
+			//	
+			//	str+=newArray[getNum]+"<br>";
+			//	
+			//}
+
+			//document.write(str);
+
+			//-----------------------------
+			//Function有call和apply方法，可以将一个对象的方法绑定到另一个对象上去执行，如下
+			//var myShirt=new Shirt("xl","yellow","xp");
+			//var hisShirt=new Shirt("xl","blue","xp");
+			//myShirt.sayHello("wangsan");
+			//document.write("<br>");
+			//hisShirt.sayHello("lisi");
+			////document.write("<br>");
+			//将myShirt的sayhello方法绑定到hisshirt上执行，方法没变，但是参数变了
+			//用的是myShirt的构造参数提供的数据，但是方法参数却是hisShirt的
+			//myShirt.sayHello.call(hisShirt,"lisi");
+
+			//----------------------------------
+			//constructor可以用来判断实例是属于哪个功能构造的，如下:
+			//var hisShirt=new Shirt("xl","blue","xp");
+			//if(hisShirt.constructor==Shirt){
+			//	document.write("OK");
+			//	
+			//}
+			//也可以用来输出实例的构造函数内的所有代码，如下
+			//document.write(hisShirt.constructor);
+			//创建对象也可以直接new 一个Object如下:
+			//var person=new Object();
+			//person.name="zhangsan";
+			//person.sex="man";
+			//person.age=12;
+
+			//对于javascript可以面向对象编程,类变量都是私有的，需要get，set方法来调用
+			//	function lisi(mysex, grade) {
+			//
+			//				this.father = person;
+			//				this.father(mysex);   
+			//				delete this.father;
+			//				var mygrade = grade;
+			//				this.show = function() {
+			//					document.write("my grade is" + mygrade);
+			//
+			//				}
+			//
+			//			}
+
+			//			function person(mysex) {
+			//				//用this来初始化数据是可以直接调用的
+			//				//	this.sex=mysex;
+			//				//下面的属性不用this来初始化，是不能直接调用的，需要接口
+			//				var sex = mysex;
+			//				var name;
+			//				var age;
+			//				this.setName = function(thename) {
+			//					name = thename;
+			//
+			//				}
+			//				this.setAge = function(theage) {
+			//
+			//					age = theage;
+			//
+			//				}
+			//				this.getName = function() {
+			//
+			//					return name;
+			//				}
+			//				this.showme = function() {
+			//
+			//					document.write("my sex is" + sex);
+			//				}
+			//
+			//			}
+
+			//			var plisi = new lisi("man",60);	
+			//调用自己的方法
+			//			plisi.show();
+			//调用父方法
+			//			plisi.showme();
+
+			//var wangsan=new person("man");
+			//wangsan.name="wangsan";
+			//wangsan.setName("wangsan");
+			//document.write(wangsan.sex);
+
+			//test-PLant继承---------------------------------------------------
+			//
+			//function Plant(age,height){
+			//	 var myage=age;
+			//	var myheight=height;
+			//	
+			//	this.grow=function(){
+			//		
+			//		document.write(myage+"----"+myheight);
+			//		
+			//		
+			//	}
+			//	
+			//}
+			//
+			//function tree(age,height){
+			//	this.father=Plant;
+			//	this.father(age,height);
+			//	delete this.father;
+			//	
+			//	
+			//	
+			//	
+			//}
+			//var mytree=new tree(12,50);
+			//mytree.grow();
+
+			//--------------------------------------------------------------
+			//创建数组，下面的方式也是可以的
+			//var age=new Array(10);
+			//age[0]=1;
+			//age[1]=2;
+			//for (var i = 2; i < age.length; i++) {
+			//	age[i]=age[i-1]+age[i-2];
+			//}
+			//for(var index in age){
+			//	
+			//	document.write(age[index]+"<br>");
+			//}
+			//数组的长度可以自行设置，数组多长，数据就有多少，如果数据比长度短，就填充undefined
+			//如果数据长度比数组长度长，则多出的就被删除了，这种方法可以删除数组数据，如下
+			//4个数据
+			//name属于系统名字，不能够使用
+			//			var array=new Array("aaaa","sss","ssssss")
+			//array.length=1;
+			//name[1]="eee"
+			//name[2]="rrr"
+			//设置数组长度为2
+			//name.length=2;
+			//document.write(name.length);
+			//				for(index in array){
+			//			document.write(array[index] + "<br />")
+			//					
+			//				}
+
+			//var mycars = new Array()
+			//mycars[0] = "Saab"
+			//mycars[1] = "Volvo"
+			//mycars[2] = "BMW"
+			//
+			//for (i=0;i<mycars.length;i++)
+			//{
+			//document.write(mycars[i] + "<br />")
+			//}
+			//----------------------------------------------
+			//合并数组
+			//			var age = new Array();
+			//			age[0] = 1;
+			//			age[1] = 2;
+			//			var mycars = new Array()
+			//			mycars[0] = "Saab"
+			//			mycars[1] = "Volvo"
+			//			mycars[2] = "BMW"
+			//			var toge=age.concat(mycars);
+			//			for(index in toge){
+			//				
+			//			document.write(toge[index] + "<br />")
+			//				
+			//			}
+			//----------------------------------------------------
+			// 添加和删除数组元素,push添加元素。返回添加后的数组的长度，pop删除元素，返回删除的元素
+			//push在数组最后添加元素
+			//pop删除数组最后一个元素
+			//			var len=age.push(5,6);
+			//			document.write(len);
+			//			var del=mycars.pop();
+			//			document.write(del);
+			//shift删除数组第一个元素，返回删除的数据
+			//unshift在数组开头添加元素，返回数组长度
+
+			//splice向数组中插入或者删除元素splice(start,count,elem1,elem2..)
+			//在第二个元素之前添加5，6，7，0代表要删除的元素，从1开始往后删除
+
+			//			age.splice(1,0,5,6,7);
+			//从第0个元素开始删除元素，删除2个
+			//			age.splice(0,2);
+			//反转数组元素
+			//			age.reverse();
+			//			for(index in age) {
+			//				document.write(age[index] + "<br />");
+			//
+			//			}
+
+			//字符串操作
+			//转换大小写
+
+			//			var myname = "zahanssano";
+			//转化为大写
+			//
+			//			var upname = myname.toUpperCase();
+			//			document.write(upname + "<br />");
+			//转化为小写
+			//			var lowname = upname.toLowerCase();
+			//			document.write(lowname + "<br />");
+			//			document.write(lowname.charAt(2) + "<br />");
+			//			document.write(lowname.charCodeAt(2) + "<br />");
+			//indexof查找字符，返回找到的第一个字符的位置，indexof(str,start),如下
+			//从第2个祖父往后查找字符a，找到就返回a的位置
+			//			var index = lowname.indexOf("a", 1);
+			//			document.write(index);
+			//split分割字符，并将分割好的字符存储为数组返回split(separator,limit),如下
+			//”a“为分割参照，以a为分割基准，2为分割后需要的个数，表示只需要分割完后的前两个数组元素
+			//			var sepu = lowname.split("a", 2);
+			//			document.write(sepu + "<br>");
+
+			//slice操作，可以提取字符slice(start,end),从start到end内的所有字符
+			//			var myslice = "werrttyyyy"
+			//从第5个到底9个元素，包括5，不包括9
+			//			document.write(myslice.slice(5,9)+"<br />");
+			//substr提取字符substr(start，length)
+			//从第5个开始截取2个
+			//			document.write(myslice.substr(5,2)+"<br />");
+
+			//-----------------------------------------------------
+			//数学运算
+			//abs计算绝对值
+			//Maths.acos()等等可以计算三角函数
+			//舍入计算，Maths.ceil(num),返回大于或者等于num的值，类似的再查
+			//产生随机数Maths.random()
+			//产生随机50-60之间的数Maths.random()*100%10+50,其他的模仿这个
+			//			var num=-21;
+			//			document.write(Math.abs(num)+"<br />");
+
+			//---------------------------------------------
+			//幂运算pow(m，n)m是底，n是指数
+			//计算3的2次方
+			//				document.write(Math.pow(3,2));
+			//求对数log(),返回e为底的对数
+			//			document.write("<br>"+Math.log(1));
+			//求平方根
+			//			document.write("<br>"+Math.sqrt(4));
+
+			//---------------------------------------------
+			//Date对象
+			//			var nowtime=new Date();
+			//			 var nowTime=nowtime.toLocaleDateString();//2016/9/29
+			//			document.write("<br>"+nowTime+nowtime.getHours()+":"+nowtime.getMinutes()+":"+nowtime.getSeconds());
+			//			with(document){
+			//				write(nowtime.toDateString()+"<br>");//Thu Sep 29 2016
+			//				write(nowtime.toLocaleString()+"<br>");//2016/9/29 下午10:47:28
+			//				write(nowtime.toLocaleTimeString()+"<br>");//下午10:47:28
+			//				
+			//				
+			//			}
+
+			//			var date=new Date(2008,7,8);
+			//			var week=date.getDay();
+			//			switch(week){
+			//				case 0:{
+			//				document.write("星期天"+"<br>");
+			//				break;
+			//				}
+			//				case 1:{
+			//				document.write("星期一"+"<br>");
+			//				break;
+			//				}
+			//				case 2:
+			//				document.write("星期二"+"<br>");
+			//				break;
+			//				case 3:
+			//				document.write("星期三"+"<br>");
+			//				break;
+			//				case 4:
+			//				document.write("星期四"+"<br>");
+			//				break;
+			//				case 5:
+			//				document.write("星期五"+"<br>");
+			//				break;
+			//				case 6:
+			//				document.write("星期六"+"<br>");
+			//				break;
+			//				
+			//				
+			//			}
+
+			//---------------------------------------------------
+			
+			//Number对象的使用
+			//数值转化为字符串
+//			var num=11.23232355555;
+			//保留3位小数
+//document.write(num.toFixed(3)+"<br>");
+			//保留科学计数法算出的值，参数是小数位数，如下，保留3位小数
+//document.write(num.toExponential(3)+"<br>");
+			//保留3为有效数字
+//document.write(num.toPrecision(3)+"<br>");
+			
+			
+			//---------------------------------
+			//调试程序时可以使用try。。cath。。来测试
+			
+			
+			//正则表达式-----------------------
+			
+			
+			
+			
+			
+		</script>
+
+	</head>
+
+	<body>
+
+	</body>
+
+</html>

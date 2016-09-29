@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+
+(function(a){
+	typeof a.CMP=="undefined"&&(a.CMP=function(){
+		var b=/msie/.test(navigator.userAgent.toLowerCase()),
+		c=function(a,b){if(b&&typeof b=="object")for(var c in b)a[c]=b[c];return a},
+		d=function(a,d,e,f,g,h,i){i=c({width:d,height:e,id:a},i),
+		h=c({allowfullscreen:"true",allowscriptaccess:"always"},h);
+		var j,k,l,m=[];
+		if(g){
+			if(typeof g=="object"){
+			for(l in g)m.push(l+"="+encodeURIComponent(g[l]));
+			j=m.join("&")}else j=String(g);
+			h.flashvars=j
+			}
+k="<object ",k+=b?'classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" ':'type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" data="'+f+'" ';for(l in i)k+=l+'="'+i[l]+'" ';k+=b?'><param name="movie" value="'+f+'" />':">";for(l in h)k+='<param name="'+l+'" value="'+h[l]+'" />';k+="</object>";return k},e=function(c){var d=document.getElementById(String(c));if(!d||d.nodeName.toLowerCase()!="object")d=b?a[c]:document[c];return d},f=function(a){if(a){for(var b in a)typeof a[b]=="function"&&(a[b]=null);a.parentNode.removeChild(a)}},g=function(a){if(a){var c=typeof a=="string"?e(a):a;if(c&&c.nodeName=="OBJECT"){b?(c.style.display="none",function(){c.readyState==4?f(c):setTimeout(arguments.callee,15)}()):c.parentNode.removeChild(c);return!0}}
+return!1
+};
+return{
+	create:function(){
+		return d.apply(this,arguments)},write:function(){
+			var a=d.apply(this,arguments);
+			document.write(a);return a},get:function(a){return e(a)},remove:function(a){return g(a)}}}())})(window);(function(window,undefined){var deltaDispatcher=function(event){event=event||window.event;var target=event.target||event.srcElement;if(target&&typeof(target.cmp_version)=="function"){var maxPos=target.skin("list.tree","maxVerticalScrollPosition");if(maxPos>0){target.focus();if(event.preventDefault){event.preventDefault();}
+return false;}}};if(window.addEventListener){window.addEventListener("DOMMouseScroll",deltaDispatcher,false);}
+window.onmousewheel=document.onmousewheel=deltaDispatcher;})(window);function yy_transv_cloneObj(myObj){if(typeof(myObj)!='object')return myObj;if(myObj==null)return myObj;var myNewObj=new Object();for(var i in myObj)
+myNewObj[i]=yy_transv_cloneObj(myObj[i]);return myNewObj;}
+function setplayer(id,url,t,auto){var conf=yy_transv_cloneObj(yy_transv_default_flashvars,conf);if(t=="mp3"){conf.skins="skin/music.swf";conf.plugins="";conf.backgrounds="{src:bg.png,xywh:[0,0,100P,100P]}";}
+conf.auto_play=auto;conf.api="cmp_loaded_"+id;conf.lists=SITEURL+"plugin.php?id=yy_transv:yy_getv&url="+encodeURIComponent(url);$("yy_transv_"+id).innerHTML=CMP.create("yy_transv_cmp_"+id,"100%","100%","source/plugin/yy_transv/playern.swf",conf,{wmode:"opaque"});}
+var ads_cmpo={};var ads_state={};var ads_tstr={};var ads_time={};function cmp_loaded(id){ads_cmpo[id]=CMP.get("yy_transv_cmp_"+id);if(!ads_cmpo[id]){return}
+ads_state[id]=0;ads_cmpo[id].addEventListener("model_state","stateHandler_"+id)}
+function stateHandler(data,id){if($("v_paused_ads_"+id))
+$("v_paused_ads_"+id).style.display='none'
+switch(data){case"playing":if(ads_state[id]==0){ads_cmpo[id].sendEvent("view_play");showplayad(id);ads_state[id]=1;}
+break;case"paused":if(ads_state[id]==1)
+$("v_paused_ads_"+id).style.display='';break;case"stopped":default:break;}}
+function showplayad(id){if($("v_playing_ads_"+id)){$("v_playing_ads_"+id).style.display='';if($("v_playing_time_"+id)){ads_time[id]=parseInt($("v_playing_time_"+id).getAttribute('time'),10);if(!ads_tstr[id]){ads_tstr[id]=$("v_playing_time_"+id).innerHTML;}
+$("v_playing_time_"+id).innerHTML=ads_tstr[id].replace('%d',ads_time[id]);tid=setInterval(function(){ads_time[id]--;var str=ads_tstr[id].replace('%d',ads_time[id]);if(ads_time[id]==0){clearInterval(tid);$("v_playing_ads_"+id).style.display='none';if(ads_cmpo[id].config("state")=="paused"){ads_cmpo[id].sendEvent("view_play");}}
+$("v_playing_time_"+id).innerHTML=str;},1000);}}}
+	</body>
+
+</html>

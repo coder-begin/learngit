@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>test</title>
+	<script type="text/javascript">
+		
+		var closeWindow=function(){
+			
+			window.close();
+			
+		}
+		function closeWin(){
+			
+			window.close();
+			
+		}
+//		var a=200;
+//		var b=parseInt(a);
+		var c=false;
+		var d=true;
+	//	document.write(b);
+//	alert(b);
+//var e=1;
+//var f=(f=e+1,g=f+3);
+//		document.write(true+false)+b;
+		alert(typeof(true+false));
+	</script>
+	
+	</head>
+	<body>
+		<!--firefox不能使用window.close()-->
+		<a href="javascript:window.close();">close</a>
+		<input type="button" value="close" onclick="closeWindow()" />
+		<input type="button" value="close" onclick="closeWin()" />
+		
+	</body>
+</html>
+
+
