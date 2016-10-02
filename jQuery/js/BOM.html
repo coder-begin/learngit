@@ -12,10 +12,25 @@
 			<input type="button" value="关闭子窗口" onclick="closeWin()">
 			<input type="button" value="移动窗口"  onclick="movWin()"/>
 			<input type="button" value="设置状态栏文字"  onclick="setStatus()"/>
-			<input type="button" value="显示时间"  onclick="setLocaTime()"/>
-			
+			<input type="button" value="显示时间"  onclick="setTimer()"/>
+			<p>
+			<input type="button" value="获取浏览器名称:"  onclick="getBrowName()"/>
+				
+			</p>
+			<p>
+			<input type="button" value="修改文档内容"  onclick="docInfo()"/>
+				
+			</p>
 		</form>
-		
+		<p>
+			<span id="spaninner">我是字幕君</span>
+		</p>
+		<p><a href="#">访问连接</a></p>
+		<input type="button" value="下一张" onclick="nextPic()">
+		<p>
+			<img id="pic" src="../img/1.jpg" height="400px" width="300px"/>
+			
+		</p>
 		
 		
 	</body>
