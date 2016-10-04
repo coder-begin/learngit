@@ -75,11 +75,11 @@ function docInfo(){
 	
 	
 }
-var picID=document.getElementById("pic");
-function nextPic(){
 
-//	var getPicName=picID.src.substr(0,1);
-var img= document.images[0];
+function nextPic(){
+var picID=document.getElementById("pic");
+	var getPicName=picID.src.substr(0,1);
+// var img= document.images[0];
 switch(getPicName){
 		case 1:picID.src="/img/2.jpg";
 		break;
@@ -87,9 +87,19 @@ switch(getPicName){
 		break;
 		case 3:picID.src="/img/1.jpg";
 		break;
-	
+		
 	}
 	
+	
+	
+}
+function upFile(){
+	
+	var getFile=document.getElementById("fileget");
+	var getWatch=document.getElementById("imgset");
+	getWatch.src="../img/"+getFile.value;
+//	var filetolow=getFile.toLowerCase();
+//	getWatch.innerHTML=
 	
 	
 }
