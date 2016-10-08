@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Function</title>
+<script type="application/javascript">
+	//js函数是一个引用类型,可以当成参数使用
+//arguments代表传给函数的参数个数
+//arguments.callee表示函数本身，好处是当函数名被更改时不用再修改使用函数调用的函数名了
+//函数.length表示函数参数个数，是定义的个数
+//函数定义方式
+//function add(a,b){
+//	document.write(arguments.length);
+//	//修改函数名时不影响
+//	document.write(arguments.callee.length);
+//	
+//}
+//add(1,2,3);
+	
+//call 方法可以改变调用对象的属性和方法等等
+////函数.call(需要调用此方法的对象,函数的参数(可以有多个));,下面例子
+function fun(sex){
+	
+	this.sex=sex;
+	
+}//定义一个函数
+var obj={};//定义一个对象
+fun.call(obj,"man");//让obj来调用函数,这样对于fun函数中this就
+//指向了obj对象，然后obj对象的sex属性就被更改为"男"
+document.write(obj.sex);					
+
+	
+</script>
+	</head>
+	<body>
+
+
+
+		
+		
+	</body>
+</html>

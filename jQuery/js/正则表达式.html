@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>正则表达式</title>
+		<script type="application/javascript">
+			
+			//i:不区分大小写 g:全局匹配 m:多行匹配
+		var reg=/woqu/ig;
+		var str="woqule woqule";
+		//exec()返回匹配的字符串
+//		document.write(reg.exec(str));
+		//match()返回匹配的字符串，默认只返回第一个。加上g可以返回所有,返回的是一个数组
+		//字符串match正则表达式
+//		var getMatch=str.match(reg);
+//		document.write(getMatch.length);
+//		document.write(str.match(reg));
+		//search返回匹配字符串的出现起始位置，返回第一个出现的位置
+//		document.write(str.search(str));
+//replace()替换，返回替换后的字符串
+//			document.write(str.replace(reg,"you know"));
+//split(),返回切割后的数组
+//document.write(str.split(" "));
+		
+			
+			
+			//-------------------------------------
+			//"."代表随意字符，但是不能是换行符
+			//"？"代表出现0次或者1次，"*"表示出现0次或者多次，"+"表示出现1次或者多次
+			//[0-9A-Z]限定取值范围
+			//"|",表示或者，只要匹配其中一个/ni|wo|ta/
+			//"()"表示分组
+			//"\d"表示数字，"/s"表示空格
+			//验证手机号
+			// /1\d{11}/
+			//分组可以用$1,$2..表示，例如:/(\s)111(\d)/,第一组就是"\s",可以用$1表示
+		</script>
+	</head>
+	<body>
+		
+	</body>
+</html>
