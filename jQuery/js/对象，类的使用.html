@@ -4,6 +4,37 @@
 		<meta charset="UTF-8">
 		<title>对象</title>
 <script type="application/javascript">
+	//构造函数
+	function Person(name,age){
+		
+		this.name=name;
+		this.age=age;
+		
+		this.show1()=function(){
+			document.write(this.name+":"+this.age);
+		}
+	
+		
+	}
+	//继承
+	//通过prototype属性来继承
+	//任意引用类型都有prototype属性，此属性可以指向一个对象，由此来调用该对象的属性和方法
+	
+	function Student(name,age,grade){
+		 Student.prototype= new Person(name,age);
+		this.grade=grade;
+		
+		this.show=function(){
+			
+			document.write(this.name+":"+this.age+":"+this.grade);
+			
+		}
+	}
+	//因为使用了prototype属性，所以me的构造方法就变成了prototype指向的对象的构造方法
+	
+	 var me=new Student("lisi","man",95);
+//	document.write();
+	me.show();
 	
 	
 	

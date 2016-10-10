@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>闭包</title>
+		<script type="application/javascript">
+			//关于闭包的使用
+			//使用闭包最大的特点就是闭包中的局部变量会长时间存在，不会再函数执行完就释放
+			//闭包就是在函数中返回另一个函数,另一个函数可以使用这个函数的数据，是新对此函数内部数据的多次调用
+			//实现累加功能
+			//		function add(){
+			//			var a=0;
+			//			return function(){
+			//				return a++;
+			//			}
+			//			
+			//			
+			//		}
+			//		var getAdd=add();//获取add函数返回的内部函数
+			//执行获取到的内部函数，返回a++的值
+			//多次调用实现累加功能
+			//如果不适用闭包，直接调用add（）函数实现累加，在
+			//第二次调用的时候a会被初始化为0，而且，调用函数中的a
+			//会在第一次调用结束后就释放内存，等到第二次调用的时候a就会回到0
+			//使用闭包函数在第二次调用的时候，闭包是不会立即释放内存的，所以实现的a++
+			//还是上次的a
+			//因为不会立即释放内存，所以会一直占用内存，所以少使用闭包
+			//		document.write(getAdd());
+			//		document.write(getAdd());
+			//		document.write(getAdd());
+			//		document.write(getAdd());
+			//		document.write(getAdd());
+
+			//-----------------------------
+			//匿名函数可以模拟实现块级作用域
+			function add() {
+				//现在i是一个全局变量
+				//如果加上匿名函数就可以使得i变成局部变量
+				(function() {
+					for(var i = 0; i < 3; i++) {
+						document.write(i);
+					}
+//放在匿名函数中，当匿名函数执行完毕i就会被释放
+				})()
+
+			}
+		</script>
+	</head>
+
+	<body>
+
+	</body>
+
+</html>
