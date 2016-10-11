@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BOM对象</title>
+	<script type="text/javascript">
+		//open方法
+		//第一个参数是链接，第二个参数是给窗口命名
+		//如果使用的是同一个名称就会使用同一个窗口，后面的会将
+		//前面的覆盖掉
+		//第三个参数可以设置打开窗口的属性
+		//例如width，height，left，top。。
+		
+		
+//		open("http://www.baidu.com","woqu","width=400,height=300,left=100,top=100");
+//		function openWin(){
+//			open("http://www.5173.com","woqu");
+//			
+//		}
+
+
+//-----------------------------
+//获取窗口位置
+//ie和谷歌中使用screenleft和screentop
+//火狐中支持screenX，screenY
+		//兼容写法
+//		var x=typeof screenX=="number"?screenX:screenLeft;
+//		var y=typeof screenY=="number"?screenY:screenTop;
+//		
+		
+		//获取窗口大小
+//		innerHeight//ie低版本不支持
+//		innerWidth
+
+
+
+
+//计时器setTimeout和setInterval
+//建议使用setTimeout函数，多次调用实现计时
+//setInterval需要清除所以不建议使用
+
+
+
+
+//navigator对象使用获取浏览器
+//获取浏览器版本
+//插件检测
+for(var index in navigator.plugins){
+document.write(navigator.plugins[index].name+":");
+document.write(navigator.plugins[index].description+"<br>");
+			
+}
+
+
+
+	</script>
+	</head>
+	<body>
+		
+		<!--<input type="button" value="open" onclick="openWin()" />-->
+		
+	</body>
+</html>
