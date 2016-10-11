@@ -34,17 +34,43 @@
 
 			//-----------------------------
 			//匿名函数可以模拟实现块级作用域
-			function add() {
+//			function add() {
 				//现在i是一个全局变量
 				//如果加上匿名函数就可以使得i变成局部变量
-				(function() {
-					for(var i = 0; i < 3; i++) {
-						document.write(i);
-					}
+//				(function() {
+//					for(var i = 0; i < 3; i++) {
+//						document.write(i);
+//					}
 //放在匿名函数中，当匿名函数执行完毕i就会被释放
-				})()
-
+//				})()
+//
+//			}
+//			
+			
+			
+			//构造函数私有变量和访问
+			function Person(name,age){
+				//定义私有变量
+				//使用引用对象的共有属性访问私有变量
+				var name=name;
+				var age=age;
+				this.play=function(){
+					document.write(name+"is play")
+					
+				}
+				this.setName=function(setname){
+					name=setname;
+				}
+				this.setAge=function(setage){
+					age=setage;
+				}
 			}
+			
+			var me=new Person("lisi",25);
+			me.setName("wangsan");
+			me.play();
+			
+			
 		</script>
 	</head>
 
