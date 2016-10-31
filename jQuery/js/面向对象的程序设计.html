@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>面向对象的程序设计</title>
+		<script>
+			//对象的两个内置属性:数据属性，访问器属性，如下:
+
+			//			var person={
+			//				_name:"woqu",
+			//				age:10
+			//				
+			//			};
+			//加"_"表示通过访问器属性来修该的属性值
+			//给对象添加访问器属性来控制输入
+			//添加name属性来实现修改_name属性时age属性也会变化
+			//			Object.defineProperty(person,"name",{
+			//				get:function(){
+			//					return this._name;
+			//					
+			//				},
+			//				set:function(newValue){
+			//					if(newValue=="niqu"){
+			//						this._name=newValue;
+			//						this.age=20;
+			//					}
+			//					
+			//				}
+			//			});
+			//			person.name="niqu";			
+			//			alert(person.age);
+
+			//---------------------------------
+			//工厂设计模式
+			//无法知道对象所在的创建函数，即对象类型
+			//		function createPerson(name,age){
+			//			var obj=new Object();
+			//			obj.name=name;
+			//			obj.age=age;
+			//			obj.play=function(){
+			//				alert("i am playing");
+			//				
+			//			}
+			//			
+			//			return obj;
+			//			
+			//			
+			//		}
+
+			//构造函数：
+			//function Person(age,name){
+			//	this.name=name;
+			//	this.age=age;
+			//	this.play=function(){
+			//		
+			//		alert("i am playing");
+			//		
+			//	};
+			//}
+			//通过构造函数创建的对象都有constructor属性，如下:
+			//var p1=new Person(10,"woqi");
+			//alert(p1.constructor==Person);//输出true
+			//构造函数创建的实例可以标识为特定的类型，这就是和工厂模式的区别，如
+			//上 面的p1实例就被标识为Person类型，而不只是Objec类型
+			//任何函数只要使用new来创建实例，那他就可以是构造函数
+
+			//原型模式
+			//每个构造函数自带原型对象属性prototype，这个属性指向一个对象(这个对象有个专有名字：原型对象)
+			//原型对象自带属性constructor，这个属性可以帮助判断这个原型对象的构造者
+			//原型对象可以和普通对象一样拥有属性和方法
+			//原型对象的属性和方法是构造函数创建的实例所共享的
+			//可以通过Object.getPrototypeOf()方法来获取实例的原型对象
+			//所有通过构造函数来创建的实例都内置一个指向构造函数原型对象的指针
+			//在实例调用属性和方法时回先在实例本身寻找，找不到就会到指向的原型对象中寻找
+			//如果实例中有和原型中相同的属性和方法，则会调用实例中的
+			//可以使用hasOwnProperty()方法来测试属性属于实例还是原型
+			//			function Person() {
+			//				Person.prototype.name = "zhangsan"; //给Person函数的原型对象创建name属性
+			//				Person.prototype.play = function() {
+			//					alert("i am playing");
+			//				}; //给Person函数的原型对象添加play方法
+			//
+			//			}
+			//			alert(Person.prototype.constructor); //会输出Person，Person的原型对象的构造者是Person
+			//			var p1 = new Person();
+			//			var p2 = new Person();
+			//			//p1,p2共享Person构造函数的原型对象
+			//			alert(p1.name); //输出"zhangsna"
+			//			alert(p2.name); //输出"zhangsan"
+			//			alert(Object.getPrototypeOf(p1).name);//通过这个方法来获取p1指向的原型对象，输出原型对象的name属性值
+			//			alert(p1.hasOwnProperty("name"));//检测p1是否含有自己的name属性
+
+			//------------------------------------
+			//关于in操作符的使用
+			//	1.测试属性是否属于对象
+			//	2.for in循环	
+			//		function person(name){
+			//			this.name=name;
+			//		}
+			//		var p1=new person("zhansahn");
+			//		alert("name" in p1);
+
+			//----------------
+			//原型对象的修改会使得构造函数实例化的对象不再指向原型
+			//	function person(){
+			//		
+			//		
+			//		
+			//	}
+			//	var p1=new person();
+			//	person.prototype={
+			//		constructor:person,//指定这个原型的构造者，不然person.constructor就不再是person
+			//		say:function(){
+			//				
+			//				alert("hi");
+			//			}
+			//			
+			//		}
+
+			//	p1.say();
+			//先定义p1再将原型对象修改
+			//不会弹出"hi"，因为perosn实例化的对象指向的是最初的原型，而不是修改后的原型
+			//如果先修改原型在定义对象就能弹出"hi"
+			//	var p2=new person();
+			//	p2.say();
+
+			//-------------------------------------------
+			//稳妥构造,工厂模式,寄生构造都一样,优点就是不能直接访问对象的内部数据,而且不使用this和new,很安全
+			//缺点就是原型对象和instanceof对其无效
+			//	function person(){
+			//		var p1=new Object();
+			//		p1.say=function(){
+			//			alert("h1");
+			//		}
+			//不能使用原型对象，原型对象只对new操作符有效
+			//		p1.prototype.sayhello=function(){
+			//			alert("hello");
+			//		}
+			//		return p1;
+			//	}
+			//	
+			//	var p2=person();
+			//	p2.say();
+			//	p2.sayhello();
+			//	p2.prototype.name="aaa";
+			//	var p2=person();
+			//	alert(p2.name);
+
+			//--------------------------------------
+			//继承
+			//法1:使用prototype链来实现继承
+			//缺点1:因为是使用原型来实现的，所以共享父对象实例，对于引用类型的数据改了一个就等于改了所有，如下
+			//缺点2:在这种继承中，不能对父对象传递参数初始化
+			//			function person() {
+			//				this.name = [1, 2, 3];
+			//				this.age = 12;
+			//				this.say = function() {
+			//					alert("hello");
+			//				}
+			//			}
+			//
+			//			function zhangsan() {
+			//
+			//			}
+			//			zhangsan.prototype = new person();
+			//			var p1 = new zhangsan();
+			//			p1.age = 50;
+			//			p1.name.push(4);
+			//			var p2 = new zhangsan();
+			//			alert(p2.age); //不是引用类型，不变
+			//			alert(p2.name); //是引用类型，所以变了
+
+			//任何实例的指针都是指向构造者的原型，并不是指向构造者，如上面
+			//zhangsan的原型指向的是person的原型，并不是指向person构造函数,
+			//但是实例在调用函数的时候是先调用实例的函数，找不到再调用原型的函数，如上
+			//虽然person.prototype指向的是person.prototype,但是还是先调用person实例的name，而不是person.prototype的name
+			//同时如果使用子对象的prototype来定义方法，只能由子对象的实例来调用，不能由父对象的实例来调用，虽然子对象的prototype指向的是父对象的prototype
+
+			//法二:使用call来实现继承
+			//			借用构造函数,实现假继承,同时也可以传递参数
+			//		缺点:不能使用prototype原型,也就是说prototype中的内容在子对象中是不可见的
+			//			function person(name){
+			//				this.name=name;
+			//			}
+			//			function me(){
+			//				person.call(this,"zhangsan");
+			//				
+			//			}
+			//			var p=new me();
+			//			alert(p.name);
+
+			//	法三:组合使用
+			//在prototype中定义公用方法，在实例中定义私有属性，使用prototype来继承实例，使用call来继承方法，如下:
+			//缺点:会调用两次父对象构造，第一次是在实例继承时new出来的，第二次是在子对象new出来时
+			//只有在new构造的时候才会创建实例，开辟空间给构造函数中的属性
+			//	function person(name){
+			//		this.name=name;
+			//	}
+			//	person.prototype.say=function(){
+			//		alert( this.name+"say");
+			//	}
+			//	function man(name,age){
+			//		//继承属性
+			//		
+			//		person.call(this,name);
+			//		this.age=age;
+			//		
+			//	}
+			//	//继承实例
+			//	man.prototype=new person();
+			//	man.prototype.sayName=function(){
+			//		alert(this.name+"say");
+			//	}
+			//	var man1=new man("zhangsan",20);
+			//	man1.sayName();
+
+			//寄生组合继承
+			//通过构造函数来继承属性，通过原型来继承方法
+			//通过寄生的方式来继承父对象的原型，这样就不用再new两次父对象了
+			//这是js实现继承最好的方式
+			//			function inheritPrototype(superType, subType) {
+			//				var prototype = Object(superType.prototype); //由父对象的原型来构造的对象
+			//				
+			//				prototype.constructor = subType; //增强对象
+			//				subType.prototype = prototype; //子对象的prototype指向父对象的prototype
+			//				//不能使用subType.prototype=superType.prototype
+			//				//因为，不使用Object对superType.prototype创建实例的话内存中就不存在它subType.prototype也就没办法指向它
+			//			}
+			//
+			//			function person(name) {
+			//				this.name = name;
+			//			}
+			//			person.prototype.say = function() {
+			//				alert(this.name + "say");
+			//			}
+			//
+			//			function man(name, age) {
+			//				//继承属性
+			//				person.call(this, name);
+			//				this.age = age;
+			//
+			//			}
+			//			//继承实例
+			//			inheritPrototype(person,man);
+			//			man.prototype.sayName = function() {
+			//				alert(this.name + "say");
+			//			}
+			//			var man1 = new man("zhangsan", 20);
+			//			man1.sayName();
+
+			//-------------------------
+
+			//			函数创建方式:
+			//			1.函数声明
+			//就是常规的创建方式，这种方式有个很重要的特性就是函数声明 提升
+			//可以允许在创建函数之前调用函数，这是因为函数声明会被先执行
+			//			如下:
+			//			person(); //函数还没创建，但是已经可以调用
+			//			function person() {
+			//				alert("i am you");
+			//			}
+			//			所以函数声明的方式是不能用来动态创建的,如下,可能会发生错误:
+			//			if(condition){
+			//				function say(){
+			//					alert("hello");
+			//				}
+			//			}else{
+			//				function say(){
+			//					alert("hi")
+			//				}
+			//			}
+			//这样创建函数是会发生错误的，因为函数提升，浏览器会直接声明函数而无视condition
+
+			//			2.函数表达式
+			//也就是匿名函数，所谓匿名函数就是function后面没有函数名
+			//如下:
+			//				var say=function(){
+			//					alert("hi");
+			//				}
+			//				这种方法可以实现动态创建函数而不会出错,但是不能在没有创建函数之前使用函数
+			/*
+			 * 下面是不可行的
+			 say();
+			 var say=function(){]
+			 	alert("hi");
+			 */
+			//但是可以动态创建，如下
+			//			var say;
+			//			if(condition){
+			//				say=function(){
+			//					alert("hello");
+			//				}
+			//			}else{
+			//				say=function(){
+			//					alert("hi")
+			//				}
+			//			}
+
+			//----------------------------
+			//在使用递归的时候函数体内所有函数名都使用arguments.callee来替换
+			//在严格模式下arguments.callee不能被使用，这样就要使用函数表达式来替换
+			//		var jiecheng=(function f(num){
+			//				if(num<1){
+			//					return 1;
+			//				}else{
+			//					return num*f(num-1);
+			//				}
+			//		});
+			//		alert(jiecheng(5));
+
+			//---------------------
+			//		闭包：有权访问另一个函数作用域中变量的函数
+			//1.闭包最重要的特性就是 在外部函数退出的时候函数内的属性并不会被立即销毁
+			//这是通过作用于链来实现的，如下:
+			//		function person(name){
+			//			return function(){
+			//				alert(name);
+			//			}
+			//			
+			//		}
+			//	var getPerson=person("woqu");
+			//	getPerson();
+			//		在上面的一个闭包中,本来在函数person执行完成后它的内部属性name就会被销毁
+			//		那么下面的函数就不会打印出name的值,但是由于闭包的存在使得name不会马上被销毁
+			//		所以下面的getPerson才能执行
+
+			//		函数都是有函数作用域和作用域链的,person函数的作用域包含两个,一个全局作用域,一个本身的作用域,通过作用域链连接
+			//		在person内部的函数包含三个作用域,一个全局,一个person(这个person和上面的是同一个),还有一个本身,它们通过作用于链scope连接
+			//		当person函数执行完成后,person和作用域之间的连接就会断掉,如果没有内部函数调用它的属性,那么这个作用域就会被销毁
+			//		但是由于有内部函数调用它的属性,所以仅仅是person和作用域之间的连接断开了,但是作用于并没有被销毁
+			//		而它的内部函数也连着person的作用域,所以内部函数还是能够继续调用其中的属性
+
+			//正是由于闭包会携带包含它所在函数的作用域，会占用过多内存，所以要尽量少使用
+
+			//2.关于闭包和变量之间的关系，如下；
+			//			function getI(){
+			//				var arr=new Array();
+			//				for(var i=0;i<5;i++){
+			//					arr[i]= function(){
+			//						return i;
+			//					};
+			//				}
+			//				return arr;
+			//			}
+			//			上面的函数调用后arr数组的每个元素返回都是5,而不是0-4;
+			//			原因就是每个内部的function的一个作用域链连的是同一个getI的作用域
+			//			所以他们指向的是同一个i,所以在函数执行完毕后会返回i最后的值
+			//但是下面一个就不同了:
+			//			function getI(){
+			//				var arr=new Array();
+			//				for(var i=0;i<5;i++){
+			//					arr[i]= function(num){
+			//						return function(){
+			//								return num;						
+			//						}
+			//					}(i);
+			//				}
+			//				return arr;
+			//			}
+			//			上面的函数就不一样了,给每个arr的元素变成了执行后的function(num),在这个函数执行的时候会将
+			//			i赋值给num来返回,i赋值给num是值传递,所以就会创建不同的num副本,而不是同一个值,所以返回的数就是不一样的值
+
+			//-----------------------
+			
+//			函数表达式可以当作块级作用域来使用
+//				(function(){
+//					
+//				})();
+			
+			//---------------------------
+//			关于私有变量的使用
+//		1.在构造函数中使用闭包来实现私有变量的访问
+//		缺点:每创建一个实例就会创建同样一组新方法,浪费内存空间
+//			function person(){
+//				var name="zhangsan";
+//				this.getName=function(){
+//					return name;
+//					
+//					
+//				}
+//				
+//			}
+//			var p1=new person();
+//			alert(p1.getName());
+
+//2.使用静态私有变量
+//缺点:改变一个等于改变所有
+//优点:提高了代码的复用性
+//		(function(){
+//			var name;
+//			//不使用var使得person变成全局的
+//			Person=function(value){
+//				
+//			
+//				name=value;
+//				
+//			}
+//			Person.prototype.getName=function(){
+//				return name;
+//			}
+//			Person.prototype.setName=function(value){
+//				name=value;
+//			}
+//			
+//			
+//		})();
+//		
+//		var p1=new Person("zhangsan");
+//		var p2=new  Person("lisi");
+//		alert(p1.getName());//输出lisi，而不是zhangsan，p1和p2共享一个name
+//		3.模块模式
+//		模块模式用于单例，只创建一个实例
+//			var manager=function(){
+//				var name;
+////				返回一个包含公共方法的对象
+//				return {
+//					getName:function(){
+//						return name;
+//					},
+//					setName:function(value){
+//						name=value;
+//					}
+//					
+//				}
+//				
+//				
+//			}();
+//			manager.setName("zhangsan");
+//			alert(manager.getName());
+//		模块增强:
+var manager=function(){
+				var name;
+				//定义一个对象副本
+				var obj=new Object();
+				obj.getName=function(){
+						return name;
+					}
+				obj.setName=function(value){
+						name=value;
+					}
+				return obj;
+				
+				
+			}();
+			manager.setName("zhangsan");
+			alert(manager.getName());
+	
+			
+			
+		</script>
+	</head>
+
+	<body>
+	</body>
+
+</html>

@@ -1,63 +1,98 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title>BOM对象</title>
-	<script type="text/javascript">
-		//open方法
-		//第一个参数是链接，第二个参数是给窗口命名
-		//如果使用的是同一个名称就会使用同一个窗口，后面的会将
-		//前面的覆盖掉
-		//第三个参数可以设置打开窗口的属性
-		//例如width，height，left，top。。
-		
-		
-//		open("http://www.baidu.com","woqu","width=400,height=300,left=100,top=100");
-//		function openWin(){
-//			open("http://www.5173.com","woqu");
-//			
-//		}
+		<script type="text/javascript">
+			//open方法
+			//第一个参数是链接，第二个参数是给窗口命名
+			//如果使用的是同一个名称就会使用同一个窗口，后面的会将
+			//前面的覆盖掉
+			//第三个参数可以设置打开窗口的属性
+			//例如width，height，left，top。。
+
+			//		open("http://www.baidu.com","woqu","width=400,height=300,left=100,top=100");
+			//		function openWin(){
+			//			open("http://www.5173.com","woqu");
+			//			
+			//		}
+			//通过open打开的窗口存在一个窗口引用，可以控制它，如下:
+//				var winOpen=open("http://www.baidu.com","woqu","width=400,height=300,left=100,top=100");
+//				winOpen.resizeTo(500,500);//重新设置打开的窗口大小
+//				winOpen.close();//关闭打开的窗口
+//				.......
+				//同样在open方法打开的窗口中还有一个opener的引用来指向打开它的窗口
+//				winOpen.opener.close();
+			//如果使用了opener那么通过open打开的窗口和原窗口就会存在通信，那么他们就需要运行在同一个进程，而不是两个进程
+			//当然如果将opener设置为null就可以在不同进程中运行
+			//总的来说，通过open打开的窗口不仅可以动态控制本身，也可以控制打开它的窗口
 
 
-//-----------------------------
-//获取窗口位置
-//ie和谷歌中使用screenleft和screentop
-//火狐中支持screenX，screenY
-		//兼容写法
-//		var x=typeof screenX=="number"?screenX:screenLeft;
-//		var y=typeof screenY=="number"?screenY:screenTop;
-//		
-		
-		//获取窗口大小
-//		innerHeight//ie低版本不支持
-//		innerWidth
+			//-----------------------------
+			//获取窗口位置0000000000000000000000000000000000000000000000000000000
+			//ie和谷歌中使用screenleft和screentop
+			//火狐中支持screenX，screenY
+			//兼容写法
+			//		var x=typeof screenX=="number"?screenX:screenLeft;
+			//		var y=typeof screenY=="number"?screenY:screenTop;
+			//		
 
+			//获取窗口大小00000000000000000000000000000000000000000000000000000
+			//		innerHeight//ie低版本不支持
+			//		innerWidth
+//			var pageWidth = innerWidth;
+//			var pageHeight = innerHeight;
+//			if(typeof pageHeight != "number") {
+//				//判断是否处于标准模式
+//				if(document.compatMode == "CSS1Compat") {
+//					pageWidth = document.documentElement.clientWidth;
+//					pageHeight = document.documentElement.clientHeight;
+//				} else {
+//					pageWidth = document.body.clientWidth;
+//					pageHeight = document.body.clientHeight;
+//				}
+//
+//			}
 
+			//计时器setTimeout和setInterval
+			//建议使用setTimeout函数，多次调用实现计时
+			//setInterval需要清除所以不建议使用
 
-
-//计时器setTimeout和setInterval
-//建议使用setTimeout函数，多次调用实现计时
-//setInterval需要清除所以不建议使用
-
-
-
-
-//navigator对象使用获取浏览器
-//获取浏览器版本
-//插件检测
-for(var index in navigator.plugins){
-document.write(navigator.plugins[index].name+":");
-document.write(navigator.plugins[index].description+"<br>");
+			//navigator对象使用获取浏览器
+			//获取浏览器版本
+			//插件检测
+			//for(var index in navigator.plugins){
+			//document.write(navigator.plugins[index].name+":");
+			//document.write(navigator.plugins[index].description+"<br>");
+			//			
+			//}
 			
-}
+			
+// javascript高级程序设计第三版p204有错误			
+			//使用超时调用来模仿间歇调用，如下；
+//			var num=0;
+//			function say(){
+//					alert("sss");
+//					if(num<5){
+//						
+//						setTimeout(say,200);
+//						num++;
+//					}
+//			}
+			//setTimeout(say,200);
+//			say();
 
 
-
-	</script>
+		
+			
+		</script>
 	</head>
+
 	<body>
-		
+
 		<!--<input type="button" value="open" onclick="openWin()" />-->
-		
+
 	</body>
+
 </html>

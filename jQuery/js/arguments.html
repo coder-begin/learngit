@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			
+			function doAdd(){
+				var num=0;
+//				arguments[n]代表的是传如函数的参数arguments[0]就代表第一个参数..
+				for(var i=0;i<arguments.length;i++){
+					num+=arguments[i];
+				}
+				
+				return num;
+				
+				
+				
+				
+			}
+			alert(doAdd(1,2,3));
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>客户端检测</title>
+		<script>
+//			1.能力检测
+			//就是检测浏览器是否能够使用某种功能，如下；
+			function getElemId(id){
+				if(document.getElementById){
+					return document.getElementById(id);
+				}else if(document.all){
+					return document.all[id];
+				}else{
+					return false;
+				}
+			}
+			
+			//如上所述，能力检测注重两个方面，首先检测最常用的方法是否存在，以达到最优
+			//然后再检测别的方法，然后要注意的是一个方法存在不代表另一个方法也存在，就如上面的例子
+			//如果document.getElementById方法存在并不能说明document的别的方法也存在
+			//所以检测能力只是检测你所要使用的方法的存在，和别的方法并没有什么关系
+//			2.更可靠的能力检测
+//能能力检测遵循最小原则，就是范围最小，这样才能最精确
+//在能力检测中不能只检测是否存在，而是要具体到是否是你要的，比如:在检测sort方法时:
+//					function testArray(){
+//						if(Sort){
+//							return true;
+//						}else{
+//							return false;
+//						}
+//					}
+			//如果向上面这样检测就很可能出错，比如；
+					//定义一个sort变量
+//					var sort=true;
+//					这样检测sort就会返回true,但是实际上并不存在sort方法
+//		所以就因该将sort具体化,如下:
+//					if(typeof sort == "function"){
+//						return true ;
+//					}
+//		这样就不会出错了
+//当然有时候浏览器的返回值也会发生改变，如有时候浏览器返回function，有时候就会返回object，这由开发商决定，
+//所以有时候需要评估可能的错误
+
+//		3.能力检测而不是浏览器检测
+//通过检测浏览器的某项能力并不能判断浏览器类型，毕竟浏览器会更新会加入新功能，也许现在不支持的功能以后就支持了
+
+				 
+				 
+				
+			
+
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
