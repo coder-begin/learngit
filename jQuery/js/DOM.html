@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>DOM</title>
+		<style type="text/css">
+			.main {
+				background-color: blue;
+				width: 50px;
+				height: 40px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="main">
+			<p>wwww</p>
+			<span>oooo</span>
+		</div>
+
+		<script>
+			//node.childNode返回一个节点列表，但是这个列表不是Array实例，虽然他可以使用方括号来访问
+			//			var child = document.getElementById("main").childNodes;
+			//			alert(document.getElementById("main").firstChild)
+			//			var arr = new Array();
+			//			for(var i = 0; i < child.length; i++) {
+			//				arr[i] = child[i].nodeType;
+			//			}
+			//			alert(arr);//这里的子节点有5个，因为文档中间的空白符也会被当作文本节点来解析
+
+			//1.插入节点
+			//（1）.		appendChild(node);返回插入的节点，插入节点到子节点的最后
+			//（2）.    insertBefore(node,参考节点);参考节点如果是null表示插入到最后 
+			//2.替换节点
+			//		replaceChild(node,要替换的节点(如：someNode.firstChild))
+			//替换节点就是将原来指向原节点的所有关系指向新的节点，原节点并没有消失，只是没有它的位子的
+			//3.删除节点
+			//		removeChid(要删除的节点)
+			//和替换节点一样，只是删除和它有关的关系，它还在文档中
+			//4.克隆节点
+			//		someNode.cloneChild()，如果带入参数则表示克隆节点和它所有子节点，不带参数则表示只是克隆这个节点
+			//如果不讲克隆的节点添加到文档中，他就不会显示
+			//节点复制只是复制属性，其他如事件处理函数等都不会复制
+			//5.文本节点处理函数:normalize()
+			//此方法就是查找后代节点中的空文本节点将其删除，同时合并相邻的两个文本节点
+
+			//-----------------------------------
+			//Docunet类型
+			//1.
+			//document是HTMLDocument的实例,HTMLDocument继承自Document类型
+			//docment是window的属性，所以可以直接访问
+			//Document的节点类型是9
+
+			//2.
+			//document.documentElement指向的是html元素，可直接调用
+			//document.body可以直接调用body元素
+			//document.doctype指向的是<?DOCTYPE>元素(不同浏览器支持不同)
+			//document.title可以调用标题
+			//document.URL可以访问页面地址栏内容
+			//document.domain可以访问页面的域名，但是不可以随意设置，可以将域设置大，但是不能缩小域
+			//例如:有一个www.baidu.com它内嵌了一个p2p.baidu.com,可以将他们都设置为baidu.com,就是不要前面的，但是不能从baidu.com重新设置为www.baidu.com
+			//document.referrer可以访问调用此页面的页面的URL(也就是打开这个页面的页面)
+
+			//3.
+			//Document类型有两个方法:getElementById()和getElementsByTagName()
+			//getElementsByTagName()会返回一个元素集合HTMLCollection，此元素集合有一个namedItem(元素name)方法，可以返回集合中指定name的元素
+			//HTMLCollection可以使用"[]"来访问值，如:document.getElementsByTagName(标签名)[name]
+			//HTMLDocument有一个特有方法:getElementsByName(),返回同样name属性的元素集合HTMLCollection，因为name值相同，所以namedItem()取的是第一个值
+
+			//4.特殊集合
+			//			document.anchors指的是<a>元素集合
+			//			document.applets指的是applet元素集合
+			//			document.forms指的是form元素集合
+			//			document.images指的是image元素集合
+			//			document.links指的是所有带href属性的a元素集合
+			//			以上集合都是HTMLCollection
+
+			//5.DOM的级别
+			//			通过document.implementation可以检测
+			//DOM1级只为document.implementation提供了一个方法hasFeature(DOM功能名称,版本号)
+			//			DOM功能有许多,例如:XML,HTML,CSS,StyleSheet等等，可以查表
+			//虽然可以通过检测浏览器DOM功能来决定使用方法，但并不是所有浏览器的DOM功能都完全符合标准，也许只实现了部分，但是也会返回true
+			//所以最好结合能力检测
+
+			//6.文档写入
+			//			document.writeln((new Date()).toLocaleDateString());
+			//			document.writeln((new Date()).toLocaleDateString());
+			//			write可以动态家在文档,加载的文档会按照html格式翻译，如:
+			//			document.write("<a href='http://www.baidu.com'>"+"baidu"+"</a>");
+			//			在XHTML并不支持以上方法
+
+			//------------------------------------------
+			//Element类型
+			//			HTMLElement继承自Element,所有html元素都可以由HTMLElement来表示
+			//			1.html元素特有属性:
+			//			id,title,lang(元素内容语言代码),dir(语言方向:ltr或者rtl),classname
+
+			//2.操作元素特性
+			//			getAttribute(属性名)
+			//		setAttribute(属性名，值)
+			//		removeAttribute(属性名)
+			//		可以使用getAttribute(属性名)获取自定义属性名,但是不能直接调用
+			//		getAttribute(属性名)获取style属性只能获取到style文本，只有直接访问才会返回对象
+			//getAttribute(属性名)也只能获取到onclick的文本内容
+			//综上，一般不会使用这个方法来获取元素属性，除非是自定义属性
+			//		对于setAttribute方法在ie7之前对于class和style无效
+			//		综上,不是自定义属性就不要使用这些方法
+
+			//3.attributes
+			//		attributes有一个NamedNodeMap存储属性节点
+			//		NamedNodeMap有以下方法:
+			//		getNamedItem(name)
+			//		setNamedItem(Attrnode)
+			//		removeNamedItem(name)
+			//和上面的方法差不都，都是获取，设置，删除属性，只不过这里将属性当成节点来处理如下:
+			//			element.attributes.setNamedItem()
+			//这些方法的唯一有优点就是可以遍历属性，因为所有属性都存储在NamedNodeMap列表中，所以很方便遍历
+
+			//4.创建元素
+			//		var elem=document.createElement(元素名称)
+			//		然后使用appendChild或者别的方法把他加到文档中
+			//这种创建方法不能动态修改input元素的type属性,对于创建的同name值元素并没有什么联系
+			//但是下面的创建方法就能避免这样的问题
+			//也可以这样创建:document.createElement("<div name=\" \",id=\" \">ssss</div>")注:所有引号要加转义字符
+
+			//Text类型
+			//1.方法:
+			//		    appendData(text)将文本添加到节点末尾
+			//			deleteData(offset,count)从offset位置开始删除count个字符
+			//insertData(offset,text)从offset位置开始插入text
+			//replaceData(offset,count,text)将text替换到offset开始，count个数字符
+			//....
+			//一个元素内部只有一个文本节点,如果向其中添加两个 相邻文本节点，那么他们会自动合并
+			//如下来控制:
+			//获取子节点
+			//			var divChild=document.getElementById("main").childNodes;
+			//遍历子节点
+			//			for(var i=0;i<divChild.length;i++){
+			//在子节点类型等于1时获取它的文本节点吗，再向文本节点中添加内容
+			//				if(divChild[i].nodeType==1){
+			//					divChild[i].firstChild.appendData("dou bi lv");
+			//					break;
+			//				}
+			//			}
+
+			//2.创建文本节点
+			//			var pNode=document.createElement("p");
+			//			pNode.className="main";
+			//			var divChild=document.getElementById("main");
+			//			var newTextNode=document.createTextNode('<strong>hello word****</strong>');//会被翻译成文本，不会解析
+			//			pNode.appendChild(newTextNode);
+			//			divChild.appendChild(pNode);
+			//			normalize()可以合并文本节点
+
+			//动态样式
+			//能够将外部样式包含到文档中的方法是<link>元素
+			//所以可以动态创建<link>元素来导入外部样式
+			//如下:
+			//				function loadCss(url){
+			//				var linkNode=document.createElement("link");
+			//				linkNode.href=url;//(css文件所在位置)
+			//				linkNode.rel="stylesheet";
+			//				linkNode.type="text/css";
+			//				document.getElementsByTagName("head")[0].appendChild(linkNode);
+			//				}
+			//最后通过appendChild等方法加入到文档中	
+			//css样式都要添加到head元素中，这样才能保证所有浏览器行为一致
+			//至于在html中添加内部样式表就不多做赘述了
+			//在html中js代码和加载外部文件是异步执行的，就是并不知道谁先加载完毕
+			//当然也可以使用js来创建style元素，以此来定义样式，但是没有这个必要，如下:
+			//			var styleNode=document.createElement("style");
+			//			styleNode.type="text/css";
+			//			styleNode.textContent=具体样式;
+			//			....
+			//			注:没必要这样，而且在ie中还会出错,虽然可以使用兼容性写法
+
+			//操作表格
+			//DOM有许多方法来创建table，而不只是createElement，如下:
+			//创建table
+//			var table = document.createElement("table");
+//			table.border = "1px";
+//			table.width = "100%";
+
+			//创建主体
+//			var tbody = document.createElement("tbody");
+//			table.appendChild(tbody);
+
+			//向主体中添加行
+			//添加第一行
+//			tbody.insertRow(0);
+			//添加第二行
+//			tbody.insertRow(1);
+			//向第一行中添加第一个单元格
+//			tbody.rows[0].insertCell(0);
+			//向第一行中添加第二个单元格
+//			tbody.rows[0].insertCell(1);
+			//设置单元格内容
+//			tbody.rows[0].cells[0].textContent = "woqu";
+//			tbody.rows[0].cells[1].textContent = "woqu";
+
+//			document.body.appendChild(table);
+//将添加行和添加单元格的过程封装成函数
+//			function addRow(table, num) {
+//				(function() {
+//					for(var i = 0; i < num; i++) {
+//							table.insertRow(i);
+//					}
+//				})();
+//
+//			}
+//			function addCell(row,num){
+//				(function() {
+//					for(var i = 0; i < num; i++) {
+//							row.insertCell(i);
+//					}
+//				})();
+//			}
+			//添加4行
+//			addRow(table,4);
+//			//给每行添加4个单元格
+//			(function(){
+//				for(var i=0;i<4;i++){
+//					addCell(table.rows[i],4);
+//				}
+//				
+//			})();
+//			
+//			
+//			document.body.appendChild(table);
+//当然除了上面的一些方法外还有许多方法来对table实现"增删改"操作
+				
+				
+				//理解nodelist(因为nodelist实时更新的特新，每次调用都会查询一次，开销很大，所以能不用就不要用)
+				//nodelist在文档结构发生变化的时候就会立刻变化(是马上更新)
+				//所以轻易不要迭代nodelist ，可能会出现死循环，如下:
+//				var divs=document.getElementsByTagName("div");//返回div的nodelist
+//				
+//				for(var i=0;i<divs.length;i++ ){
+					//创建div元素，并把他添加到body中
+					//因为在不停的添加div元素，所以返回的divs.length就会一直变变大，形成死循环
+					//解决办法就是再创建一个变量来保存一开始的divs.length来实现迭代
+//					var div=document.createElement("div");
+//					document.body.appendChild(div);
+
+//				}
+
+				
+
+
+		</script>
+	</body>
+
+</html>

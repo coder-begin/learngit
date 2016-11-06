@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>DOM扩展</title>
+		<script type="text/javascript">
+			//		1.选择符API
+			//			querySelector()和querySelectorAll()
+			//上面两个方法可以通过像css那样来选择元素，
+			//querySelector()只返回找到的第一个元素
+			//querySelectorAll()返回找到的所有匹配元素
+			window.onload = function() {
+				//只返回匹配的第一个选项
+				//	var getP=document.body.querySelector("#main p");
+				//	getP.textContent="ssssssww";
+				//返回匹配的所有选项，通过"[]"来访问		
+				//	var getP2=document.body.querySelectorAll("#main p");
+				//	getP2[1].textContent="11616563";
+
+				//2.元素遍历；
+				//在element traversal中可以使用新方法实现遍历而不需要判断节点类型,如下
+				//				function searchChild(element) {
+				//
+				//					var child = element.firstElementChild;
+				//					while(child != element.lastElementChild) {
+				//						//这里不需要判断节点类型，因为firstElementChild和lastElementChild
+				//						//返回的是元素类型，不会返回别的类型
+				//							child=child.nextElementSibling;
+				//					}
+				//				}
+
+				//html5
+				//			1.document.getElementsByClassName()这是html5新增的方法，可以通过类名来返回元素，传入多个类名
+				//就可以返回类名是所填参数的所有元素，不管参数的前后顺序
+				//2.新增的classList属性可以返回一个元素所有类名，返回的是一个集合,如下：
+				//想要删除p元素类中的two类
+				//			var pNode=document.body.querySelector("#main p");
+				//			p.classList.remove("two");
+				//这种方法最大的有优点就是不需要象以前一样先获取所有clssName,再删除two最后把删除后的字符串再赋值给className
+				//3.焦点管理
+				//			document.activeElement这个属性可以获取焦点所在的元素
+				//hasFocus()方法判断元素是否获得焦点。
+				
+				//4.HTMLDocument的变化
+				//a.readyState属性，有两个值:loading和complete,表示文档是否加载完毕
+				//b。兼容模式:
+//				document.compatMode可以来判断浏览器是标准模式还是混杂模式
+//				标准模式:CSS1Compat
+//				混杂模式:BackCompat
+
+				//5.字符集属性
+				// document.charset可以设置字符集，一般在meta标签中设置
+				
+				//6.自定义数据属性
+				//在自定义属性要以“data-”开头，如下:
+//				<div data-name="myname"></div>
+				//获取自定义属性方法:
+				//dataset是DOMStringMap的一个实例，用来存储元素所有自定义的属性
+//				var pNode=document.body.querySelector("#main p");
+//				alert(pNode.dataset.name);
+			//自定义的属性可以用来处理一些不可见的数据
+			
+			//6.插入标记
+			//innerHTML可以个文档插入子节点，但是会覆盖原来的节点
+			//innerHTML会返回所有子节点内容，如下:
+//			var divNode=document.getElementById("main");
+//			alert(divNode.innerHTML);
+			//在大多数浏览器中使用innerHTML无法添加<script>标签，应该说是没办法解析中间的内容
+			//同时，并不是所有属性都支持innerHTML属性，像<table><tbody><style>等都不支持这个属性
+			
+			//outerHTML方法和innerHTML差不多，只是返回的内容会包括调用的元素，如下:
+//			var divNode=document.getElementById("main");
+//			alert(divNode.outerHTML);
+			//这个会包含divNode,同时修改的话，也会覆盖掉div节点，不仅仅是子节点了
+//			var pNode=document.body.querySelector("#main p");
+//			pNode.outerHTML="<table style='background-color: blue;width: 20px;height: 10px;'></table>"
+			//outerHtml可以插入所有元素
+			
+//			//insertAdjacentHTML(要插入的位置，要插入的内容)
+			//插入位置有4种选择
+//			beforebegin:在当前元素前面插入一个同辈元素
+//			afterend:在当前元素后面插入一个同辈元素
+//			afterbegin:在当前元素内插入一个子元素,或者在第一个子元素之前插入一个子元素
+//			beforeend:在当前子元素内插入一个子元素,或者在最后一个子元素之前插入一个子元素
+//			例:
+//			var pNode=document.body.querySelector("#main p");
+//				pNode.insertAdjacentHTML("beforebegin","<span>woqu</span>");
+			//注:在使用上面的三个方法之前，先要去掉要修改元素的绑定事件处理和属性
+			//因为在使用这个方法修改节点的时候并不会把原来的节点函数删除，会占用内存
+			//因为每次修改节点就要调用一次解析器，同时进行两次读取，所以尽量少使用，要使用就一次性添加，不要多次添加
+			
+					
+					
+
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="main">
+
+			<p class="one two three" data-name = "myname">wwwwww</p>
+			<span>iiiiiii</span>
+			<p>wwwwww</p>
+		</div>
+
+	</body>
+
+</html>
